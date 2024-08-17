@@ -13,7 +13,7 @@ import java.util.Queue;
  */
 public class BinaryTreeRightSideView {
     public static void main(String[] args) {
-        List<Integer> result = rightSideView(
+        List<Integer> result = rightSideViewApproach2BFS(
                 new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4)))
         );
         System.out.println(result.toString());
@@ -25,13 +25,35 @@ public class BinaryTreeRightSideView {
         frontier.add(new QueueNode(root, 0));
         while (!frontier.isEmpty()) {
             QueueNode node = frontier.poll();
-            if(node == null || node.node == null) continue;
+            if (node == null || node.node == null) continue;
             if (node.node.right != null) frontier.add(new QueueNode(node.node.right, node.level + 1));
             if (node.node.left != null) frontier.add(new QueueNode(node.node.left, node.level + 1));
             if (node.level == results.size()) results.add(node.level, node.node.val);
         }
         return results;
     }
+
+    public static List<Integer> rightSideViewApproach2BFS(TreeNode root) {
+        if (root == null) return null;
+        Queue<TreeNode> frontier = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
+        frontier.add(root);
+        while (!frontier.isEmpty()) {
+            int levelSize = frontier.size();
+            TreeNode rightmost = null;
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode currentNode = frontier.poll();
+                rightmost = currentNode;
+                if (currentNode.left != null) frontier.add(currentNode.left);
+                if (currentNode.right != null) frontier.add(currentNode.right);
+            }
+
+            if (rightmost != null) result.add(rightmost.val);
+
+        }
+        return result;
+    }
+
 
     public static class QueueNode {
         TreeNode node;
