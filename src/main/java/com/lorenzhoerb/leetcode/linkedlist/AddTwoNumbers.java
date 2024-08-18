@@ -29,16 +29,14 @@ public class AddTwoNumbers {
             int newVal = l1Val + l2Val + carry;
             carry = newVal / 10;
             int digit = newVal % 10;
-            ListNode newNode = new ListNode(digit);
-            end.next = newNode;
+            end.next = new ListNode(digit);
             end = end.next;
 
             if(l1 != null) l1 = l1.next;
             if(l2 != null) l2 = l2.next;
         }
         if(carry != 0) {
-            ListNode newNode = new ListNode(carry);
-            end.next = newNode ;
+            end.next = new ListNode(carry);
         }
 
         return dummy.next;
