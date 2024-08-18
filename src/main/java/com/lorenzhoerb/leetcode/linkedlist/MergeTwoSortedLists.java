@@ -1,5 +1,7 @@
 package com.lorenzhoerb.leetcode.linkedlist;
 
+import java.util.List;
+
 /**
  * 21. Merge Two Sorted Lists
  * <p>
@@ -50,6 +52,25 @@ public class MergeTwoSortedLists {
         }
 
         return start;
+    }
+
+    public static ListNode mergeTwoListsApproach2(ListNode list1, ListNode list2) {
+        ListNode start = new ListNode();
+        ListNode end = start;
+        while (list1 != null && list2 != null) {
+            if(list1.val <= list2.val) {
+               end.next = list1;
+               list1 = list1.next;
+            } else {
+                end.next = list2;
+                list2 = list2.next;
+            }
+            end  = end.next;
+        }
+
+        end.next = list1 == null ? list2 : list1;
+
+        return start.next;
     }
 
     public static class ListNode {
