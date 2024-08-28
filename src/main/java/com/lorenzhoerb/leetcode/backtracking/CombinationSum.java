@@ -11,7 +11,6 @@ public class CombinationSum {
 
     public static List<List<Integer>> backtrack(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
-        boolean[] used = new boolean[candidates.length];
         backtrack(candidates, 0, target,  new ArrayList<>(), 0, result);
         return result;
     }
